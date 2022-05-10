@@ -1,0 +1,8 @@
+.photo-grid__container {
+  display: flex;
+  padding: 25px 20px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0 0 10px 10px;
+  background-color: #FFF;
+}

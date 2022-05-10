@@ -1,0 +1,24 @@
+.page {
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  background-color: #000;
+  color: #FFF;
+}
+
+@media screen and (max-width: 770px) {
+  .page {
+    align-items: center;
+  }
+}
+
+.page::-webkit-scrollbar {
+  width: 2px;
+}
+
+.page::-webkit-scrollbar-thumb {
+  background: #F00;
+}

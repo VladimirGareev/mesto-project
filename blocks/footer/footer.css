@@ -1,0 +1,24 @@
+.footer {
+  padding: 66px 200px 60px 200px;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  line-height: 1.21;
+  font-weight: 400;
+  color: #545454;
+}
+
+@media screen and (max-width: 1100px) {
+  .footer {
+    padding: 50px;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .footer {
+    font-size: 18px;
+    width: 88vw;
+    padding: 0;
+    padding-top: 48px;
+    padding-bottom: 36px;
+  }
+}
