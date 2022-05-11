@@ -1,17 +1,17 @@
 .popup__close {
-  position: absolute;
+  margin-left: 8px;
+  margin-bottom: 400px;
   width: 33px;
   height: 33px;
-  right: -40px;
-  top: -40px;
-  background-image: url(../../../images/close_icon.png);
+  background-image: url(../../../images/close-icon.svg);
   background-size: contain;
-  background-color: #000;
+  background-color: transparent;
   border: 0;
+  background-repeat: no-repeat;
 }
 
 .popup__close:hover {
-  background-image: url(../../../images/close_icon_hover.png);
+  background-image: url(../../../images/close-icon-hover.svg);
   cursor: pointer;
 }
 
@@ -19,7 +19,7 @@
   .popup__close {
     width: 20px;
     height: 20px;
-    right: 0;
-    top: -36px;
+    margin-left: -20px;
+    margin-bottom: 380px;
   }
 }
