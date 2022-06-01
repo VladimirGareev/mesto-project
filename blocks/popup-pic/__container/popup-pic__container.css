@@ -1,0 +1,7 @@
+.popup-pic__container {
+  display: flex;
+  position: fixed;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  max-width: 75vw;
+  flex-direction: column;
+}

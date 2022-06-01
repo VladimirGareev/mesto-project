@@ -28,66 +28,52 @@
       <button class="profile__add" aria-label="Добавить" type="button"></button>
     </section>
     <section>
-      <ul class="photo-grid">
-        <li class="photo-grid__figure">
-          <img class="photo-grid__photo" src="./images/karachaevsk.jpg" alt="церковь на склоне горы">
-          <div class="photo-grid__container">
-            <h2 class="photo-grid__caption">Карачаевск</h2>
-            <button class="photo-grid__button" aria-label="Нравится" type="button"></button>
-          </div>
-        </li>
-        <li class="photo-grid__figure">
-          <img class="photo-grid__photo" src="./images/elbrus.jpg" alt="Эльбрус">
-          <div class="photo-grid__container">
-            <h2 class="photo-grid__caption">Гора Эльбрус</h2>
-            <button class="photo-grid__button" aria-label="Нравится" type="button"></button>
-          </div>
-        </li>
-        <li class="photo-grid__figure">
-          <img class="photo-grid__photo" src="./images/dombai.jpg" alt="Домбай">
-          <div class="photo-grid__container">
-            <h2 class="photo-grid__caption">Домбай</h2>
-            <button class="photo-grid__button" aria-label="Нравится" type="button"></button>
-          </div>
-        </li>
-        <li class="photo-grid__figure">
-          <img class="photo-grid__photo" src="./images/elbrus.jpg" alt="Эльбрус">
-          <div class="photo-grid__container">
-            <h2 class="photo-grid__caption">Гора Эльбрус</h2>
-            <button class="photo-grid__button" aria-label="Нравится" type="button"></button>
-          </div>
-        </li>
-        <li class="photo-grid__figure">
-          <img class="photo-grid__photo" src="./images/dombai.jpg" alt="Домбай">
-          <div class="photo-grid__container">
-            <h2 class="photo-grid__caption">Домбай</h2>
-            <button class="photo-grid__button" aria-label="Нравится" type="button"></button>
-          </div>
-        </li>
-        <li class="photo-grid__figure">
-          <img class="photo-grid__photo" src="./images/karachaevsk.jpg" alt="церковь на склоне горы">
-          <div class="photo-grid__container">
-            <h2 class="photo-grid__caption">Карачаево-Черкессия</h2>
-            <button class="photo-grid__button" aria-label="Нравится" type="button"></button>
-          </div>
-        </li>
-      </ul>
+      <ul class="photo-grid"></ul>
     </section>
   </main>
   <footer class="footer">
     &COPY; 2020 Mesto Russia
   </footer>
-  <div class="popup ">
+  <div class="popup">
     <div class="popup__container">
       <h2 class="popup__heading">Редактировать профиль</h2>
       <form class="popup__form" name="Mypopup">
-        <input type="text" class="popup__text popup__text_input_name" id="name" name="name" placeholder="Жак-Ив Кусто">
-        <input type="text" class="popup__text popup__text_input_profession" id="text" name="profession" placeholder="Исследователь океана">
+        <input type="text" class="popup__text" id="name" name="name" >
+        <input type="text" class="popup__text" id="text" name="profession" >
         <button type="submit" aria-label="Отправить" class="popup__submit">Сохранить</button>
       </form>
     </div>
     <button class="popup__close" aria-label="Закрыть" type="button"></button>
   </div>
+  <div class="popup-add">
+    <div class="popup-add__container">
+      <h2 class="popup-add__heading">Новое место</h2>
+      <form class="popup-add__form" name="MypopupAdd">
+        <input type="text" class="popup-add__text" id="addName" name="add-name" placeholder="Название" required>
+        <input type="url" class="popup-add__text" id="link" name="link" placeholder="Ссылка на картинку" required>
+        <button type="submit" aria-label="Создать" class="popup-add__submit">Создать</button>
+      </form>
+    </div>
+    <button class="popup-add__close" aria-label="Закрыть" type="button"></button>
+  </div>
+  <div class="popup-pic">
+    <div class="popup-pic__container">
+      <img class="popup-pic__picture" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg" alt="">
+      <p class="popup-pic__heading">название карточки</p>
+      <button class="popup-pic__close" aria-label="Закрыть" type="button"></button>
+    </div>
+  </div>
+  <template id="photoAdd">
+  <li class="photo-grid__figure">
+    <button class="photo-grid__bin" aria-label="Удалить" type="button"></button>
+    <img class="photo-grid__photo" src="./images/elbrus.jpg" alt="Ваша Картинка">
+    <div class="photo-grid__container">
+      <h2 class="photo-grid__caption">Гора Эльбрус</h2>
+      <button class="photo-grid__button" aria-label="Нравится" type="button"></button>
+    </div>
+  </li>
+</template>
+  <script src="script.js"></script>
 </body>
 
 </html>

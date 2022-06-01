@@ -1,0 +1,17 @@
+.photo-grid__bin {
+  height: 19.3px;
+  width: 18px;
+  background-image: url(../../../images/bin.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.photo-grid__bin:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
