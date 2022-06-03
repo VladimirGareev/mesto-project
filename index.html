@@ -19,7 +19,7 @@
     <section class="profile">
       <img class="profile__image" src="./images/jak-iv-kusto.jpg" alt="Фото профиля">
       <div class="profile__info">
-        <div clas="profile__container">
+        <div class="profile__container">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <button class="profile__edit" aria-label="Редактировать" type="button"></button>
         </div>
@@ -34,18 +34,18 @@
   <footer class="footer">
     &COPY; 2020 Mesto Russia
   </footer>
-  <div class="popup">
-    <div class="popup__container">
-      <h2 class="popup__heading">Редактировать профиль</h2>
-      <form class="popup__form" name="Mypopup">
-        <input type="text" class="popup__text" id="name" name="name" >
-        <input type="text" class="popup__text" id="text" name="profession" >
-        <button type="submit" aria-label="Отправить" class="popup__submit">Сохранить</button>
+  <div class="popup popup-first">
+    <div class="popup-first__container">
+      <h2 class="popup-first__heading">Редактировать профиль</h2>
+      <form class="popup-first__form" name="Mypopup">
+        <input type="text" class="popup-first__text" id="name" name="name">
+        <input type="text" class="popup-first__text" id="text" name="profession">
+        <button type="submit" aria-label="Отправить" class="popup-first__submit">Сохранить</button>
       </form>
     </div>
     <button class="popup__close" aria-label="Закрыть" type="button"></button>
   </div>
-  <div class="popup-add">
+  <div class="popup popup-add">
     <div class="popup-add__container">
       <h2 class="popup-add__heading">Новое место</h2>
       <form class="popup-add__form" name="MypopupAdd">
@@ -54,26 +54,27 @@
         <button type="submit" aria-label="Создать" class="popup-add__submit">Создать</button>
       </form>
     </div>
-    <button class="popup-add__close" aria-label="Закрыть" type="button"></button>
+    <button class="popup__close" aria-label="Закрыть" type="button"></button>
   </div>
-  <div class="popup-pic">
+  <div class="popup popup-pic">
     <div class="popup-pic__container">
-      <img class="popup-pic__picture" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg" alt="">
+      <img class="popup-pic__picture"
+        src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg" alt="">
       <p class="popup-pic__heading">название карточки</p>
-      <button class="popup-pic__close" aria-label="Закрыть" type="button"></button>
+      <button class="popup__close popup-pic__close" aria-label="Закрыть" type="button"></button>
     </div>
   </div>
   <template id="photoAdd">
-  <li class="photo-grid__figure">
-    <button class="photo-grid__bin" aria-label="Удалить" type="button"></button>
-    <img class="photo-grid__photo" src="./images/elbrus.jpg" alt="Ваша Картинка">
-    <div class="photo-grid__container">
-      <h2 class="photo-grid__caption">Гора Эльбрус</h2>
-      <button class="photo-grid__button" aria-label="Нравится" type="button"></button>
-    </div>
-  </li>
-</template>
-  <script src="script.js"></script>
+    <li class="photo-grid__figure">
+      <button class="photo-grid__bin" aria-label="Удалить" type="button"></button>
+      <img class="photo-grid__photo" src="./images/elbrus.jpg" alt="Ваша Картинка">
+      <div class="photo-grid__container">
+        <h2 class="photo-grid__caption">Гора Эльбрус</h2>
+        <button class="photo-grid__button" aria-label="Нравится" type="button"></button>
+      </div>
+    </li>
+  </template>
+  <script src="./scripts/script.js"></script>
 </body>
 
 </html>

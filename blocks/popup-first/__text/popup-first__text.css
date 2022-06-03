@@ -1,4 +1,4 @@
-.popup__text {
+.popup-first__text {
   margin: 0 36px 30px 36px;
   border: none;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
@@ -8,7 +8,7 @@
   border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
 
-.popup__text::-ms-input-placeholder {
+.popup-first__text::-ms-input-placeholder {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-size: 14px;
   line-height: 1.21;
@@ -16,7 +16,7 @@
   font-weight: 400;
 }
 
-.popup__text::-moz-placeholder {
+.popup-first__text::-moz-placeholder {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-size: 14px;
   line-height: 1.21;
@@ -24,7 +24,7 @@
   font-weight: 400;
 }
 
-.popup__text::-webkit-input-placeholder {
+.popup-first__text::-webkit-input-placeholder {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-size: 14px;
   line-height: 1.21;
@@ -32,7 +32,7 @@
   font-weight: 400;
 }
 
-.popup__text::placeholder {
+.popup-first__text::placeholder {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-size: 14px;
   line-height: 1.21;
@@ -41,7 +41,7 @@
 }
 
 @media screen and (max-width: 600px) {
-  .popup__text {
+  .popup-first__text {
     margin: 0px 22px 30px 22px;
   }
 }
