@@ -1,4 +1,4 @@
-.popup-first__submit {
+.popup-profile__submit {
   color: #FFF;
   background-color: #000;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
@@ -13,13 +13,13 @@
   border-radius: 2px;
 }
 
-.popup-first__submit:hover {
+.popup-profile__submit:hover {
   cursor: pointer;
   opacity: .8;
 }
 
 @media screen and (max-width: 600px) {
-  .popup-first__submit {
+  .popup-profile__submit {
     margin: 15px 22px 25px 22px;
     font-size: 14px;
   }

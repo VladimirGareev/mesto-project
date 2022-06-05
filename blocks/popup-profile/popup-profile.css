@@ -1,4 +1,4 @@
-.popup-first {
+.popup-profile {
   background-color: rgba(0, 0, 0, 0.5);
   top: 0;
   right: 0;
@@ -7,5 +7,4 @@
   z-index: 0;
   justify-content: center;
   align-items: center;
-
 }
