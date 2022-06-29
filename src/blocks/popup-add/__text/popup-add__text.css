@@ -1,11 +1,13 @@
 .popup-add__text {
-  margin: 0 36px 30px 36px;
+  margin: 0 36px 5px 36px;
   border: none;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-size: 14px;
   line-height: 1.21;
   color: #000;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
+  padding-top: 10px;
+  padding-bottom: 20px;
 }
 
 .popup-add__text::-ms-input-placeholder {
@@ -40,8 +42,12 @@
   font-weight: 400;
 }
 
+.popup-add__text:focus {
+  outline-color: skyblue;
+}
+
 @media screen and (max-width: 600px) {
   .popup-add__text {
-    margin: 0px 22px 30px 22px;
+    margin: 0px 22px 5px 22px;
   }
 }

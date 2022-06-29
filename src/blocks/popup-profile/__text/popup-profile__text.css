@@ -1,5 +1,5 @@
 .popup-profile__text {
-  margin: 0 36px 30px 36px;
+  margin: 0 36px 5px 36px;
   border: none;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-size: 14px;
@@ -24,6 +24,12 @@
   font-weight: 400;
 }
 
+.popup-profile__text {
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+
 .popup-profile__text::-webkit-input-placeholder {
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-size: 14px;
@@ -40,8 +46,12 @@
   font-weight: 400;
 }
 
+.popup-profile__text:focus {
+    outline-color: skyblue;
+}
+
 @media screen and (max-width: 600px) {
   .popup-profile__text {
-    margin: 0px 22px 30px 22px;
+    margin: 0px 22px 5px 22px;
   }
 }
