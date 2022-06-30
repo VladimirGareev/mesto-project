@@ -31,7 +31,7 @@ const photoAddButton = document.querySelector(".profile__add");
 const popupAdd = document.querySelector(".popup-add");
 const photoAddName = document.querySelector("#addName");
 const photoAddLink = document.querySelector("#link");
-const closeButtons = document.querySelectorAll(".popup__close");
+const popups = document.querySelectorAll(".popup");
 const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -42,7 +42,7 @@ const validationConfig = {
 import { enableValidation } from "./validate.js";
 import { renderCard } from "./cards.js";
 import { createCard } from "./cards.js";
-import { openPopup, closePopup } from "./utils";
+import { openPopup, closePopup} from "./utils";
 import {
   profileEditButton,
   popupProfileForm,
@@ -86,26 +86,21 @@ popupAddForm.addEventListener("submit", (evt) => {
   renderCard(newCard);
   closePopup(popupAdd);
   evt.target.reset();
-});
-closeButtons.forEach((button) => {
-  const popup = button.closest(".popup");
-  button.addEventListener("click", () => closePopup(popup));
+  popupAddForm.querySelector('.popup__button').classList.add(validationConfig.inactiveButtonClass);
+  popupAddForm.querySelector('.popup__button').disabled = 'disabled';
 });
 
 enableValidation(validationConfig);
 
-document.addEventListener("keydown", (evt) => {
-  const activePopup = document.querySelector(".popup_opened");
-  if (evt.key === "Escape") {
-    closePopup(activePopup);
-  }
-});
-
-document.addEventListener("mousedown", (evt) => {
-  const activePopup = document.querySelector(".popup_opened");
-  if (evt.target.classList.contains("popup_opened")) {
-    closePopup(activePopup);
-  }
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+      if (evt.target.classList.contains('popup_opened')) {
+          closePopup(popup)
+      }
+      if (evt.target.classList.contains('popup__close')) {
+        closePopup(popup)
+      }
+  })
 });
 
 import "../pages/index.css";
