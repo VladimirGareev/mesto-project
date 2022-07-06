@@ -1,0 +1,4 @@
+.profile__image-edit_active {
+  visibility: visible;
+  opacity: 0.8;
+}

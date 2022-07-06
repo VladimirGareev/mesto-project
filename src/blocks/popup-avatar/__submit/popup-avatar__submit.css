@@ -1,0 +1,26 @@
+.popup-avatar__submit {
+  color: #FFF;
+  background-color: #000;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  line-height: 1.21;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 24px 36px 37px 36px;
+  min-height: 50px;
+  border: none;
+  border-radius: 2px;
+}
+
+.popup-avatar__submit:hover {
+  cursor: pointer;
+  opacity: .8;
+}
+
+@media screen and (max-width: 600px) {
+  .popup-avatar__submit {
+    margin: 15px 22px 25px 22px;
+    font-size: 14px;
+  }
+}

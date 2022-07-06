@@ -13,3 +13,12 @@ export function closePopup(anyPopup) {
   anyPopup.classList.remove('popup_opened')
   document.removeEventListener('keydown', closeByEscape);
 };
+
+export function renderLoading (isLoading, config, popup) {
+  const button = popup.querySelector(`${config.submitButtonSelector}`);
+  if (isLoading) {
+        button.textContent = "Сохранение...";
+  } else {
+    button.textContent = "Сохранить";
+  }
+}

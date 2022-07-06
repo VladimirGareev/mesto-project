@@ -1,34 +1,11 @@
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
 const profileName = document.querySelector(".profile__title");
 const profileText = document.querySelector(".profile__text");
+const profileAvatar = document.querySelector(".profile__image");
 const photoAddButton = document.querySelector(".profile__add");
 const popupAdd = document.querySelector(".popup-add");
+const popupAvatar = document.querySelector(".popup-avatar");
+const popupAvatarForm = document.querySelector(".popup-avatar__form");
+const popupAvatarLink = document.querySelector(".popup-avatar__text");
 const photoAddName = document.querySelector("#addName");
 const photoAddLink = document.querySelector("#link");
 const popups = document.querySelectorAll(".popup");
@@ -42,7 +19,7 @@ const validationConfig = {
 import { enableValidation } from "./validate.js";
 import { renderCard } from "./cards.js";
 import { createCard } from "./cards.js";
-import { openPopup, closePopup} from "./utils";
+import { openPopup, closePopup, renderLoading } from "./utils";
 import {
   profileEditButton,
   popupProfileForm,
@@ -51,6 +28,49 @@ import {
   popupProfileText,
   popupAddForm,
 } from "./modal";
+import {
+  getAllCards,
+  onResponse,
+  getProfile,
+  editProfile,
+  addCard,
+  editAvatar,
+} from "./api.js";
+
+getProfile()
+  .then(onResponse)
+  .then((data) => {
+    profileName.textContent = data.name;
+    profileText.textContent = data.about;
+    profileAvatar.src = data.avatar;
+    profileAvatar.id = data._id;
+    getAllCards()
+      .then(onResponse)
+      .then((cards) => {
+        cards.forEach((card) => {
+          let newCard = createCard(card);
+          if (card.owner._id !== profileAvatar.id) {
+            newCard.querySelector(".photo-grid__bin").remove();
+          }
+          if (
+            card.likes.some((item) => {
+              return item._id === profileAvatar.id;
+            })
+          ) {
+            newCard
+              .querySelector(".photo-grid__button")
+              .classList.add("photo-grid__button_active");
+          }
+          renderCard(newCard);
+        });
+      })
+      .catch((err) => {
+        console.log(`Ошибка загрузки карточек с сервера: ${err.status}`);
+      });
+  })
+  .catch((err) => {
+    console.log(`Ошибка загрузки данных профиля с сервера: ${err.status}`);
+  });
 
 popupProfileName.value = profileName.textContent;
 popupProfileText.value = profileText.textContent;
@@ -63,13 +83,20 @@ profileEditButton.addEventListener("click", () => {
 
 popupProfileForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
+  renderLoading(true, validationConfig, popupProfile);
   profileName.textContent = popupProfileName.value;
   profileText.textContent = popupProfileText.value;
-  closePopup(popupProfile);
-});
-
-initialCards.forEach(function (item) {
-  renderCard(createCard(item));
+  editProfile(popupProfileName.value, popupProfileText.value)
+    .then(onResponse)
+    .then(() => {
+      closePopup(popupProfile);
+    })
+    .catch((err) => {
+      console.log(`Ошибка отправки данных профиля на сервер: ${err.status}`);
+    })
+    .finally((res) => {
+      renderLoading(false, validationConfig, popupProfile);
+    });
 });
 
 photoAddButton.addEventListener("click", function () {
@@ -78,29 +105,72 @@ photoAddButton.addEventListener("click", function () {
 
 popupAddForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
-  const cardFromForm = {
-    name: photoAddName.value,
-    link: photoAddLink.value,
-  };
-  const newCard = createCard(cardFromForm);
-  renderCard(newCard);
-  closePopup(popupAdd);
-  evt.target.reset();
-  popupAddForm.querySelector('.popup__button').classList.add(validationConfig.inactiveButtonClass);
-  popupAddForm.querySelector('.popup__button').disabled = 'disabled';
+  renderLoading(true, validationConfig, popupAdd);
+  addCard(photoAddName.value, photoAddLink.value)
+    .then(onResponse)
+    .then((res) => {
+      renderCard(createCard(res));
+      closePopup(popupAdd);
+      evt.target.reset();
+      popupAddForm
+        .querySelector(".popup__button")
+        .classList.add(validationConfig.inactiveButtonClass);
+      popupAddForm.querySelector(".popup__button").disabled = "disabled";
+    })
+    .catch((err) => {
+      console.log(`Ошибка отправки места на сервер: ${err.status}`);
+    })
+    .finally((res) => {
+      renderLoading(false, validationConfig, popupAdd);
+    });
 });
 
 enableValidation(validationConfig);
 
 popups.forEach((popup) => {
-  popup.addEventListener('mousedown', (evt) => {
-      if (evt.target.classList.contains('popup_opened')) {
-          closePopup(popup)
-      }
-      if (evt.target.classList.contains('popup__close')) {
-        closePopup(popup)
-      }
-  })
+  popup.addEventListener("mousedown", (evt) => {
+    if (evt.target.classList.contains("popup_opened")) {
+      closePopup(popup);
+    }
+    if (evt.target.classList.contains("popup__close")) {
+      closePopup(popup);
+    }
+  });
+});
+
+profileAvatar.addEventListener("mouseover", (evt) => {
+  document
+    .querySelector(".profile__image-edit")
+    .classList.add("profile__image-edit_active");
+});
+profileAvatar.addEventListener("mouseout", (evt) => {
+  document
+    .querySelector(".profile__image-edit")
+    .classList.remove("profile__image-edit_active");
+});
+document
+  .querySelector(".profile__image-edit")
+  .addEventListener("mousedown", (evt) => {
+    openPopup(popupAvatar);
+    popupAvatarLink.value = profileAvatar.src;
+    enableValidation(validationConfig);
+  });
+
+popupAvatarForm.addEventListener("submit", (evt) => {
+  evt.preventDefault();
+  renderLoading(true, validationConfig, popupAvatar);
+  editAvatar(popupAvatarLink.value)
+    .then(onResponse)
+    .then((res) => {
+      profileAvatar.src = res.avatar;
+      closePopup(popupAvatar);
+    })
+    .catch((err) => {
+      console.log(`Ошибка отправки данных профиля на сервер: ${err.status}`);
+    })
+    .finally((res) => {
+      renderLoading(false, validationConfig, popupAvatar);
+    });
 });
 
 import "../pages/index.css";

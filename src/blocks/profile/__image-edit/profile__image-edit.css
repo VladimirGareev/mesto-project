@@ -1,0 +1,14 @@
+.profile__image-edit {
+  visibility: hidden;
+  height: 120px;
+  width: 120px;
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  object-fit: none;
+  background-color: black;
+  opacity: 0;
+  transition: all 1s;
+}
+
+

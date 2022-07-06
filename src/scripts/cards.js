@@ -4,6 +4,7 @@ const popupPic = document.querySelector('.popup-pic');
 const popupPicImg = popupPic.querySelector('.popup-pic__picture');
 const popupHeading = popupPic.querySelector('.popup-pic__heading');
 import {openPopup} from "./utils";
+import { onResponse, removeCard, addLike, removeLike } from "./api";
 
 export function renderCard(data) {
   cardSection.prepend(data);
@@ -12,15 +13,40 @@ export function renderCard(data) {
 export function createCard(data) {
   const newCardContainer = newCardTemplate.querySelector('.photo-grid__figure').cloneNode(true);
   const newCardContainerPhoto = newCardContainer.querySelector('.photo-grid__photo');
+  const cardLikes = newCardContainer.querySelector('.photo-grid__likes');
   newCardContainerPhoto.src = data.link;
   newCardContainerPhoto.alt = data.name;
+  newCardContainerPhoto.id = data._id;
+  cardLikes.textContent = data.likes.length;
+
   newCardContainer.querySelector('.photo-grid__caption').textContent = data.name;
   newCardContainer.querySelector('.photo-grid__button').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('photo-grid__button_active');
+    if(evt.target.classList.contains('photo-grid__button_active')) {
+      removeLike(data._id)
+        .then(onResponse)
+        .then((res) => {
+          evt.target.classList.remove("photo-grid__button_active");
+          cardLikes.textContent = res.likes.length;
+        })
+        .catch((err) => {console.log(`Ошибка: ${err.status}`)});
+    } else {
+      addLike(data._id)
+        .then(onResponse)
+        .then((res) => {
+        evt.target.classList.add("photo-grid__button_active");
+        cardLikes.textContent = res.likes.length;
+      })
+        .catch((err) => {console.log(`Ошибка: ${err.status}`)});
+    }
   });
+
   newCardContainer.querySelector('.photo-grid__bin').addEventListener('click', function (evt) {
-    const removeNewElement = evt.target;
-    newCardContainer.remove();
+    removeCard(newCardContainerPhoto.id)
+    .then(onResponse)
+    .then((res) => {
+      newCardContainer.remove();
+    })
+    .catch((err) => {console.log(`Ошибка удаления карточки на сервере: ${err.status}`)})
   });
   newCardContainerPhoto.addEventListener('click', function (evt) {
     popupPicImg.src = data.link;
