@@ -17,10 +17,10 @@ const validationConfig = {
   inputErrorClass: "popup__input_type_error",
 };
 const popupAddSubmitButton = popupAddForm.querySelector(validationConfig.submitButtonSelector);
-
+const popupProfileSubmitButton = popupProfileForm.querySelector(validationConfig.submitButtonSelector);
 
 const avatarEditLogo = document.querySelector(".profile__image-edit");
-import { enableValidation } from "./validate.js";
+import { enableValidation, toggleButtonState} from "./validate.js";
 import { renderCard } from "./cards.js";
 import { createCard } from "./cards.js";
 import { openPopup, closePopup, renderLoading } from "./utils";
@@ -66,7 +66,9 @@ getProfile()
 
 profileEditButton.addEventListener("click", () => {
   openPopup(popupProfile);
-
+  popupProfileName.value = profileName.textContent;
+  popupProfileText.value = profileText.textContent;
+  toggleButtonState(popupProfileSubmitButton, popupProfileForm, validationConfig)
 });
 
 popupProfileForm.addEventListener("submit", (evt) => {
