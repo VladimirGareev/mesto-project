@@ -16,6 +16,10 @@ const validationConfig = {
   inactiveButtonClass: "popup__button_disabled",
   inputErrorClass: "popup__input_type_error",
 };
+const popupAddSubmitButton = popupAddForm.querySelector(validationConfig.submitButtonSelector);
+
+
+const avatarEditLogo = document.querySelector(".profile__image-edit");
 import { enableValidation } from "./validate.js";
 import { renderCard } from "./cards.js";
 import { createCard } from "./cards.js";
@@ -30,7 +34,6 @@ import {
 } from "./modal";
 import {
   getAllCards,
-  onResponse,
   getProfile,
   editProfile,
   addCard,
@@ -38,30 +41,16 @@ import {
 } from "./api.js";
 
 getProfile()
-  .then(onResponse)
-  .then((data) => {
-    profileName.textContent = data.name;
-    profileText.textContent = data.about;
-    profileAvatar.src = data.avatar;
-    profileAvatar.id = data._id;
+  .then((datas) => {
+    profileName.textContent = datas.name;
+    profileText.textContent = datas.about;
+    profileAvatar.src = datas.avatar;
+    profileAvatar.id = datas._id;
     getAllCards()
-      .then(onResponse)
-      .then((cards) => {
+        .then((cards) => {
         cards.forEach((card) => {
-          let newCard = createCard(card);
-          if (card.owner._id !== profileAvatar.id) {
-            newCard.querySelector(".photo-grid__bin").remove();
-          }
-          if (
-            card.likes.some((item) => {
-              return item._id === profileAvatar.id;
-            })
-          ) {
-            newCard
-              .querySelector(".photo-grid__button")
-              .classList.add("photo-grid__button_active");
-          }
-          renderCard(newCard);
+           const newCard = createCard(card, profileAvatar.id);
+           renderCard(newCard);
         });
       })
       .catch((err) => {
@@ -72,23 +61,21 @@ getProfile()
     console.log(`Ошибка загрузки данных профиля с сервера: ${err.status}`);
   });
 
-popupProfileName.value = profileName.textContent;
-popupProfileText.value = profileText.textContent;
+  enableValidation(validationConfig);
+
 
 profileEditButton.addEventListener("click", () => {
   openPopup(popupProfile);
-  popupProfileName.value = profileName.textContent;
-  popupProfileText.value = profileText.textContent;
+
 });
 
 popupProfileForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
   renderLoading(true, validationConfig, popupProfile);
-  profileName.textContent = popupProfileName.value;
-  profileText.textContent = popupProfileText.value;
   editProfile(popupProfileName.value, popupProfileText.value)
-    .then(onResponse)
-    .then(() => {
+      .then(() => {
+      profileName.textContent = popupProfileName.value;
+      profileText.textContent = popupProfileText.value;
       closePopup(popupProfile);
     })
     .catch((err) => {
@@ -107,15 +94,12 @@ popupAddForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
   renderLoading(true, validationConfig, popupAdd);
   addCard(photoAddName.value, photoAddLink.value)
-    .then(onResponse)
-    .then((res) => {
-      renderCard(createCard(res));
+     .then((res) => {
+      renderCard(createCard(res, profileAvatar.id));
       closePopup(popupAdd);
       evt.target.reset();
-      popupAddForm
-        .querySelector(".popup__button")
-        .classList.add(validationConfig.inactiveButtonClass);
-      popupAddForm.querySelector(".popup__button").disabled = "disabled";
+     popupAddSubmitButton.classList.add(validationConfig.inactiveButtonClass);
+     popupAddSubmitButton.disabled = 'disabled';
     })
     .catch((err) => {
       console.log(`Ошибка отправки места на сервер: ${err.status}`);
@@ -139,29 +123,23 @@ popups.forEach((popup) => {
 });
 
 profileAvatar.addEventListener("mouseover", (evt) => {
-  document
-    .querySelector(".profile__image-edit")
+  avatarEditLogo
     .classList.add("profile__image-edit_active");
 });
 profileAvatar.addEventListener("mouseout", (evt) => {
-  document
-    .querySelector(".profile__image-edit")
+  avatarEditLogo
     .classList.remove("profile__image-edit_active");
 });
-document
-  .querySelector(".profile__image-edit")
+avatarEditLogo
   .addEventListener("mousedown", (evt) => {
     openPopup(popupAvatar);
-    popupAvatarLink.value = profileAvatar.src;
-    enableValidation(validationConfig);
-  });
+});
 
 popupAvatarForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
   renderLoading(true, validationConfig, popupAvatar);
   editAvatar(popupAvatarLink.value)
-    .then(onResponse)
-    .then((res) => {
+     .then((res) => {
       profileAvatar.src = res.avatar;
       closePopup(popupAvatar);
     })
@@ -170,7 +148,7 @@ popupAvatarForm.addEventListener("submit", (evt) => {
     })
     .finally((res) => {
       renderLoading(false, validationConfig, popupAvatar);
-    });
+      });
 });
 
 import "../pages/index.css";

@@ -23,6 +23,7 @@
 @import url(../blocks/photo-grid/__container/photo-grid__container.css);
 @import url(../blocks/photo-grid/__likes/photo-grid__likes.css);
 @import url(../blocks/photo-grid/__likes-container/photo-grid__likes-container.css);
+@import url(../blocks/photo-grid/__bin/_inactive/photo-grid__bin_inactive.css);
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup-profile/popup-profile.css);

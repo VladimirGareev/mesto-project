@@ -6,7 +6,7 @@ const config = {
   }
 }
 
-export const onResponse = (res) => {
+export const checkResponse = (res) => {
   return res.ok? res.json() : Promise.reject(res)
 }
 
@@ -14,6 +14,7 @@ export function getAllCards() {
   return fetch(`${config.url}/cards`, {
     headers: config.headers
   })
+  .then(checkResponse)
 }
 
 export function addCard(cardName, cardLink) {
@@ -25,6 +26,7 @@ export function addCard(cardName, cardLink) {
       link: `${cardLink}`
     })
   })
+  .then(checkResponse)
 }
 
 export function removeCard(dataId) {
@@ -32,6 +34,7 @@ export function removeCard(dataId) {
     method: 'DELETE',
     headers: config.headers,
     })
+    .then(checkResponse)
 }
 
 export function editProfile(profileName, profileAbout) {
@@ -43,12 +46,14 @@ export function editProfile(profileName, profileAbout) {
       about: `${profileAbout}`
     })
   })
+  .then(checkResponse)
 }
 
 export function getProfile() {
   return fetch(`${config.url}/users/me`, {
     headers: config.headers,
     })
+    .then(checkResponse)
 }
 
 export function addLike(dataId) {
@@ -56,6 +61,7 @@ export function addLike(dataId) {
     method: 'PUT',
     headers: config.headers,
     })
+    .then(checkResponse)
 }
 
 export function removeLike(dataId) {
@@ -63,6 +69,7 @@ export function removeLike(dataId) {
     method: 'DELETE',
     headers: config.headers,
     })
+    .then(checkResponse)
 }
 
 export function editAvatar(profileAvatar) {
@@ -73,4 +80,5 @@ export function editAvatar(profileAvatar) {
       avatar: `${profileAvatar}`
     })
   })
+  .then(checkResponse)
 }
